@@ -52,7 +52,7 @@ services:
         condition: on-failure
 
   vote:
-    image: tomcode/3dokr-vote:latest
+    image: tomcod/3dokr-vote:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -75,7 +75,7 @@ services:
         condition: on-failure
 
   worker:
-    image: tomcode/3dokr-worker:latest
+    image: tomcod/3dokr-worker:latest
     depends_on:
       - redis
       - postgres
@@ -97,7 +97,7 @@ services:
         condition: on-failure
 
   result:
-    image: tomcode/3dokr-result:latest
+    image: tomcod/3dokr-result:latest
     ports:
       - "8081:8888"
     depends_on:
