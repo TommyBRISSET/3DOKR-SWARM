@@ -53,6 +53,11 @@ services:
 
   vote:
     image: tomcod/3dokr-vote:latest
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_DEBUG=0
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
     ports:
       - "8080:8080"
     depends_on:
