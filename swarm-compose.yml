@@ -51,6 +51,7 @@ services:
 
   vote:
     image: tomcod/3dokr-vote:latest
+    entrypoint: ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=8080"]
     environment:
       - FLASK_APP=app.py
       - FLASK_DEBUG=0
@@ -63,11 +64,6 @@ services:
     networks:
       - app-network
       - redis-vote-result-network
-    healthcheck:
-      test: ["CMD-SHELL", "wget --spider http://localhost:8080 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
     deploy:
       replicas: 3
       resources:
@@ -76,6 +72,11 @@ services:
           memory: 1G
       restart_policy:
         condition: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider http://localhost:8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   worker:
     image: tomcod/3dokr-worker:latest
