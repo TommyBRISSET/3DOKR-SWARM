@@ -76,6 +76,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+      start_period: 30s
 
   worker:
     image: tomcod/3dokr-worker:latest
