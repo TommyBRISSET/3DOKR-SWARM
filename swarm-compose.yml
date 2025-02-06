@@ -71,12 +71,7 @@ services:
           memory: 1G
       restart_policy:
         condition: on-failure
-    healthcheck:
-      test: [ "CMD-SHELL", "wget --spider http://localhost:8080 || exit 1" ]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 30s
+
 
   worker:
     image: tomcod/3dokr-worker:latest
@@ -126,11 +121,41 @@ services:
       restart_policy:
         condition: on-failure
 
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    networks:
+      - monitoring
+
+
 volumes:
   redis-data:
     name: redis-data-volume
   postgres-data:
     name: postgres-data-volume
+  grafana-data:
 
 networks:
   app-network:
@@ -138,4 +163,7 @@ networks:
   redis-vote-result-network:
     driver: overlay
   postgres-worker-result-network:
+    driver: overlay
+  monitoring:
+    external: false
     driver: overlay
