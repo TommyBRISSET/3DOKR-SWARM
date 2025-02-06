@@ -71,6 +71,11 @@ services:
           memory: 1G
       restart_policy:
         condition: on-failure
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --spider http://localhost:8080 || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   worker:
     image: tomcod/3dokr-worker:latest
