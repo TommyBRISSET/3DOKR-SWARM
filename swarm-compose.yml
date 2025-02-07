@@ -126,7 +126,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - /home/vagrant/3DOKR-SWARM/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /home/vagrant/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     deploy:
       replicas: 1
       placement:
