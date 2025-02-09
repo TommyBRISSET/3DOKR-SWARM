@@ -67,7 +67,7 @@ services:
       replicas: 3
       placement:
         preferences:
-          - spread==: node.labels.zone
+          - spread: node.labels.zone
         constraints:
           - node.role != manager
       resources:
