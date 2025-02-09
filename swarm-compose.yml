@@ -65,6 +65,9 @@ services:
       - redis-vote-result-network
     deploy:
       replicas: 3
+      placement:
+        constraints:
+          - node.role != manager
       resources:
         limits:
           cpus: "1"
@@ -88,6 +91,9 @@ services:
       retries: 3
     deploy:
       replicas: 3
+      placement:
+        constraints:
+          - node.role != manager
       resources:
         limits:
           cpus: "1"
@@ -114,6 +120,9 @@ services:
       retries: 3
     deploy:
       replicas: 3
+      placement:
+        constraints:
+          - node.role != manager
       resources:
         limits:
           cpus: "1"
@@ -131,7 +140,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.role == manager
+          - node.role != manager
     networks:
       - monitoring
 
@@ -145,7 +154,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.role == manager
+          - node.role != manager
     networks:
       - monitoring
 
