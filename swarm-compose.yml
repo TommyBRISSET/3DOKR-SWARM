@@ -45,6 +45,9 @@ services:
       timeout: 5s
     deploy:
       replicas: 3
+      placement:
+        constraints:
+          - node.role != manager
       resources:
         limits:
           cpus: "0.5"
